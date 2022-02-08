@@ -1,0 +1,111 @@
+# app.json application description
+
+A description of application-related information, including key information such as the application logo, page title, and login jump intersection.
+
+## Example
+
+<Notice type='warning'>
+	Note: app.json should be defined first when building an app, as it contains many prerequisites
+	for the app's UI to work.
+</Notice>
+
+```json
+{
+	"name": "Elephant Biography",
+	"short": "Elephant Biography",
+	"description": "Elephant app background",
+	"plugins": {
+		"feishu": {
+			"comment": "Not yet enabled (ignored for now)",
+			"appid": "",
+			"secret": "",
+			"subscribe": {},
+			"sync": {}
+		}
+	},
+	"storage": {
+		"default": "oss",
+		"oss": {
+			"comment": "https://www.alibabacloud.com/help/zh/doc-detail/100624.htm",
+			"endpoint": "oss-hangzhou.aliyuncs.com",
+			"id": "",
+			"secret": "",
+			"roleArn": "",
+			"sessionName": ""
+		}
+	},
+	"option": {
+		"nav_user": "xiang.user",
+		"nav_menu": "menu",
+		"hide_user": true,
+		"hide_menu": true,
+		"login": {
+			"image": {
+				"admin": "/extend/undraw_movie_night_re_9umk.svg",
+				"user": "/extend/undraw_pie_graph_re_fvol.svg"
+			},
+			"entry": {
+				"admin": "/kanban/kanban.index",
+				"user": "/table/service"
+			},
+			"password": {
+				"captcha": "/api/xiang/user/captcha",
+				"login": "/api/user/login"
+			},
+			"feishu": {
+				"authUrl": "/api/feishu/auth/url",
+				"login": "/api/feishu/login"
+			}
+		}
+	}
+}
+```
+
+## Props
+
+```ts
+interface IProps {
+	// Application Name
+	name: string
+	// application abbreviated name
+	short?: string
+	// application description
+	description?: string
+	// Apply plugins, refer to Yao's definition of Plugins
+	plugins?: Plugins
+	// Use third-party storage settings, refer to Yao's definition of Storage
+	storage?: Storage
+	option: {
+		login: {
+			// Configure the jump page after administrator and user login
+			entry: {
+				admin: string
+				user: string
+			}
+			// Configure the illustration of the administrator, user login page
+			image?: {
+				admin: string
+				user: string
+			}
+			// Configure the login related interface
+			password?: {
+				captcha: string
+				login: string
+			}
+			// Display and configure the Feishu login interface
+			feishu?: {
+				authUrl: '/api/feishu/auth/url'
+				login: '/api/feishu/login'
+			}
+		}
+		// Custom user module, default is xiang.user
+		nav_user?: 'user'
+		// Custom menu module, default is xiang.menu
+		nav_menu: 'menu'
+		// Hide the navigation bar user function button
+		hide_user?: true
+		// Hide the navigation bar menu function button
+		hide_menu?: true
+	}
+}
+```

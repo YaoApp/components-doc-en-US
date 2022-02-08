@@ -1,0 +1,41 @@
+# Image
+
+Picture, used to display image information.
+
+## Scenes
+
+- profile picture
+
+- product picture
+
+## Example
+
+```json
+{
+	"Label": {
+		"label": "image",
+		"view": {
+			"type": "image",
+			"props": {
+				"value": ":avatar"
+			}
+		}
+	}
+}
+```
+
+## Props
+
+```ts
+interface IProps extends ImageProps {
+	value: string | Array<string>
+}
+```
+
+## API
+
+| Properties | Description | Type                      | Default | Required | Version |
+| ---------- | ----------- | ------------------------- | ------- | -------- | ------- |
+| value      | image path  | string \| `Array<string>` | -       | yes      |         |
+
+For other properties, see [Antd Image](https://ant.design/components/image/)

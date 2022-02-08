@@ -1,0 +1,75 @@
+# Bar
+
+The bar chart component used to represent data with data depth.
+
+## Scenes
+
+- Average daily visits.
+
+- Dietary preferences.
+
+## Example
+
+```json
+{
+	"name": "Cloud vendor usage",
+	"width": 6,
+	"height": 4,
+	"type": "bar",
+	"props": {
+		"x_key": "name",
+		"height": "100%",
+		"axisLabel": {
+			"interval": 0,
+			"rotate": 30,
+			"textStyle": {
+				"fontSize": 10
+			}
+		},
+		"series": [
+			{
+				"name": "usage",
+				"type": "bar",
+				"colorBy": "data",
+				"itemStyle": {
+					"borderRadius": 6
+				},
+				"splitLine": {
+					"show": false
+				},
+				"axisLabel": {
+					"show": false
+				}
+			}
+		]
+	}
+}
+```
+
+## Props
+
+```ts
+export interface IProps {
+	name: string
+	height: number
+	x_key: string
+	vertical: boolean
+	textLength: number
+	textWrap: boolean
+	hide_label?: boolean
+}
+```
+
+## API
+
+| Properties | Description                                 | Type   | Default | Required | Version |
+| ---------- | ------------------------------------------- | ------ | ------- | -------- | ------- |
+| name       | data key                                    | string | -       | yes      |         |
+| height     | height                                      | string | -       | yes      |         |
+| x_key      | abscissa key                                | string | -       | yes      |         |
+| vertical   | whether to display vertically               | string | -       | no       |         |
+| textLength | text length limit                           | string | -       | no       |         |
+| textWrap   | Whether the text exceeds the length to wrap | string | -       | No       |         |
+| hide_label | hide title                                  | string | -       | no       |         |
+
+For more properties, see [Echarts Bar](https://echarts.apache.org/examples/en/index.html#chart-type-bar)

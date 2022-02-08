@@ -1,0 +1,76 @@
+# TreeSelect
+
+Tree selection control.
+
+## Scenes
+
+Similar to Select's selection control, when the selectable data structure is a tree structure, TreeSelect can be used, such as company hierarchy, subject system, classification directory, etc.
+
+- Select the company sector.
+
+- Select the specified category.
+
+## Example
+
+```json
+{
+	"TreeSelect": {
+		"label": "TreeSelect",
+		"edit": {
+			"type": "treeSelect",
+			"props": {
+				"value": ":treeSelect",
+				"allowClear": true,
+				"multiple": true,
+				"remote": {
+					"api": "/api/tree/search",
+					"query": {
+						"select": ["id", "name"]
+					}
+				}
+			}
+		}
+	}
+}
+```
+
+## Props
+
+```ts
+interface Option {
+	key: string
+	title: string
+	children: Array<Option>
+	disabled?: boolean
+	disableCheckbox?: boolean
+	selectable?: boolean
+	checkable?: boolean
+}
+
+interface IProps extends TreeProps {
+	options: array<Option>
+	remote: {
+		api: string
+		query: {
+			select: Array<string>
+		}
+	}
+}
+```
+
+## API
+
+| Properties | Description            | Type              | Default | Required | Version |
+| ---------- | ---------------------- | ----------------- | ------- | -------- | ------- |
+| value      | bind value             | string            | -       | yes      |         |
+| options    | list of options        | IProps['options'] | -       | no       |         |
+| remote     | list of remote options | [Remote](#Remote) | -       | no       |         |
+
+### Remote
+
+| Properties | Description | Type                      | Required |
+| ---------- | ----------- | ------------------------- | -------- |
+| api        | interface   | string                    | yes      |
+| query      | interface   | IProps['remote']['query'] | no       |
+
+For other properties, see [Antd TreeSelect](https://ant.design/components/tree-select/)

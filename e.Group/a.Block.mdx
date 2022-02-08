@@ -1,0 +1,43 @@
+# Block 
+
+Blocks for displaying images, titles and descriptions.
+
+## Example
+
+<Notice type='warning'>
+	Note: The value in the components attribute will be parsed into columns predefined components.
+</Notice>
+
+```json
+{
+	"Service Information": {
+		"label": "Service Information",
+		"view": {
+			"type": "block",
+			"components": {
+				"avatar": "Marketing Image",
+				"name": "Service Name",
+				"desc": "Service Type"
+			}
+		}
+	}
+}
+```
+
+## Props
+
+```ts
+interface IProps {
+	avatar: string
+	name: string
+	desc: string
+}
+```
+
+## API
+
+| Properties | Description | Type   | Default | Required | Version |
+| ---------- | ----------- | ------ | ------- | -------- | ------- |
+| avatar     | image       | string | -       | yes      |         |
+| name       | name        | string | -       | yes      |         |
+| desc       | profile     | string | -       | yes      |         |

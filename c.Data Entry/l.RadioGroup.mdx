@@ -1,0 +1,76 @@
+# RadioGroup 
+
+Group of checkboxes.
+
+## Scenes
+
+- When making a single choice among a set of mutually exclusive options.
+
+- The difference from Select is that all options of Radio are visible by default, which is convenient for users to choose in comparison, so the options should not be too many.
+
+## Example
+
+```json
+{
+	"RadioGroup": {
+		"label": "RadioGroup",
+		"edit": {
+			"type": "radioGroup",
+			"props": {
+				"value": ":radioGroup",
+				"options": [
+					{
+						"label": "Apple",
+						"value": 1
+					},
+					{
+						"label": "Pear",
+						"value": 2
+					},
+					{
+						"label": "Orange",
+						"value": 3
+					}
+				]
+			}
+		}
+	}
+}
+```
+
+## Props
+
+```ts
+interface Option {
+	label: string
+	value: string
+	disabled?: boolean
+}
+
+interface IProps extends TreeProps {
+	options: array<Option>
+	remote: {
+		api: string
+		query: {
+			select: Array<string>
+		}
+	}
+}
+```
+
+## API
+
+| Properties | Description            | Type              | Default | Required | Version |
+| ---------- | ---------------------- | ----------------- | ------- | -------- | ------- |
+| value      | bind value             | string            | -       | yes      |         |
+| options    | list of options        | IProps['options'] | -       | no       |         |
+| remote     | list of remote options | [Remote](#Remote) | -       | no       |         |
+
+### Remote
+
+| Properties | Description | Type                      | Required |
+| ---------- | ----------- | ------------------------- | -------- |
+| api        | interface   | string                    | yes      |
+| query      | interface   | IProps['remote']['query'] | no       |
+
+See [Antd RadioGroup](https://ant.design/components/radio/#RadioGroup) for other properties

@@ -1,0 +1,237 @@
+# Chart & Kanban
+
+Charts and dashboards to visualize structured data to present clearer and easier-to-understand data metrics.
+
+## Scenes
+
+- as a chart or kanban page
+
+- Called by ChartModal on Table to quickly browse the specified data chart
+
+## Example
+
+<Notice type='warning'>
+	Note: The Chart component can be used both as a page and as a separate component. The
+	difference between the big screen and the Kanban board is that the Kanban board does not have
+	a filter toolbar, and the button in the upper right corner can be linked to the big screen.
+</Notice>
+
+<Detail title="Show Code">
+
+```json
+{
+	"label": "Indicator comparison",
+	"version": "1.0.0",
+	"description": "Indicator comparison for testing",
+	"nodes": [
+		{
+			"name": "Cloud vendor market share",
+			"engine": "xiang",
+			"query": {
+				"debug": true,
+				"select": ["id", "name", "rate"],
+				"from": "$service",
+				"limit": 100
+			}
+		}
+	],
+	"apis": {
+		"data": {
+			"disable": false,
+			"default": [
+				{
+					"from": "1980-01-02",
+					"to": "2050-12-31"
+				}
+			]
+		},
+		"setting": {
+			"disable": false
+		}
+	},
+	"output": {
+		"data": {
+			"Cloud vendor market share": "{{$res.Cloud vendor market share}}"
+		},
+		"query": "{{$in}}"
+	},
+	"filters": {
+		"time interval": {
+			"label": "Time interval",
+			"bind": "range",
+			"input": {
+				"type": "rangePicker",
+				"props": {
+					"placeholder": ["start time", "end time"]
+				}
+			}
+		}
+	},
+	"page": {
+		"primary": "City",
+		"layout": {
+			"filters": [
+				{
+					"name": "Time interval",
+					"width": 6
+				}
+			],
+			"charts": [
+				{
+					"name": "Cloud vendor market share",
+					"width": 12,
+					"type": "pie",
+					"table": true,
+					"table_props": {
+						"height": 240,
+						"columns": [
+							{
+								"title": "ID",
+								"dataIndex": "id"
+							},
+							{
+								"title": "Name",
+								"dataIndex": "name"
+							},
+							{
+								"title": "Market Share",
+								"dataIndex": "rate"
+							}
+						]
+					},
+					"charts": [
+						{
+							"name": "Rose Diagram",
+							"type": "pie",
+							"props": {
+								"height": 240,
+								"x_key": "name",
+								"tooltip": {
+									"textStyle": {
+										"color": "#a2a5b9",
+										"fontSize": 12
+									},
+									"backgroundColor": "#232326",
+									"borderRadius": 6
+								},
+								"series": [
+									{
+										"name": "rate",
+										"type": "pie",
+										"roseType": "area",
+										"radius": [10, 100],
+										"center": ["60%", "50%"],
+										"itemStyle": {
+											"borderRadius": 3
+										}
+									}
+								]
+							}
+						},
+						{
+							"name": "Histogram",
+							"type": "bar",
+							"props": {
+								"height": 240,
+								"x_key": "name",
+								"axisLabel": {
+									"interval": 0,
+									"textStyle": {
+										"fontSize": 10
+									}
+								},
+								"series": [
+									{
+										"name": "rate",
+										"type": "bar",
+										"colorBy": "data",
+										"itemStyle": {
+											"borderRadius": 3
+										},
+										"splitLine": {
+											"show": false
+										},
+										"axisLabel": {
+											"show": false
+										}
+									}
+								]
+							}
+						}
+					]
+				}
+			]
+		}
+	}
+}
+```
+
+</Detail>
+
+## Props
+
+```ts
+type ChartComponent = 'numberCard' | 'table' | 'line' | 'bar' | 'lineBar' | 'map' | 'pie'
+
+interface IProps {
+	// page title
+	label: string
+	// Version
+	version?: string
+	// page description
+	description?: string
+	// Refer to Yao's definition of Node
+	nodes: Array<Node>
+	// Refer to Yao's definition of Api
+	apis: APIs
+	// Refer to Yao's definition of Output
+	output: Output
+	// Refer to Columns in Table & Form chapter
+	filters?: Columns
+	// page description
+	page: {
+		// primary key
+		primary: string
+		// Valid when the page is a Kanban
+		option?: {
+			// Data refresh interval, in milliseconds
+			request_interval: number
+			// big screen link
+			screen: string
+		}
+		layout: {
+			// filter items
+			filters?: Array<{
+				name: string
+				width?: number
+			}>
+			// graph
+			charts: Array<Chart>
+		}
+	}
+}
+
+interface Chart {
+	// Chart Name & Data Key
+	name: string
+	// width, 24 grid
+	width: number
+	// Component name, can not be specified when the charts field has a value
+	type?: ChartComponent
+	// Component properties, if the charts field has a value, it can be left unspecified
+	props?: { [key: string]: any }
+	// Whether to display the table at the bottom of the chart
+	table?: boolean
+	// table related properties
+	table_props?: {
+		// height, beyond scrolling
+		height: number
+		// column information
+		columns: Array<{
+			title: string
+			dataIndex: string
+		}>
+	}
+	charts?: Chart | Array<Chart>
+}
+```

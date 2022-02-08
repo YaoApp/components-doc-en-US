@@ -1,0 +1,174 @@
+# DynamicList
+
+Dynamic list, a powerful component that supports CURD operations on specified data lists in Form.
+
+## Scenes
+
+- When you need to edit a list item in a form.
+
+- When highly customizable output list data is required.
+
+## Example
+
+<Notice type='warning'>Note: Dynamic lists need to be used with specific settings. </Notice>
+
+```json
+{
+	"DynamicList": {
+		"label": "DynamicList",
+		"edit": {
+			"type": "dynamicList",
+			"props": {
+				"setting": "dynamic",
+				"value": ":dynamic",
+				"query": {
+					"sort": "$index"
+				}
+			}
+		}
+	}
+}
+```
+
+<Detail title="/api/xiang/setting/dynamic">
+
+```json
+{
+	"label": "Configuration",
+	"version": "1.0.0",
+	"description": "Configuration",
+	"nodes": [],
+	"output": {
+		"columns": {
+			"Word": {
+				"label": "Text",
+				"edit": {
+					"type": "label",
+					"props": {
+						"value": "every"
+					}
+				}
+			},
+			"grouping": {
+				"label": "Grouping",
+				"edit": {
+					"type": "input",
+					"props": {
+						"value": ":group"
+					}
+				}
+			},
+			"metric type": {
+				"label": "Indicator Type",
+				"edit": {
+					"type": "select",
+					"props": {
+						"value": ":type",
+						"options": [
+							{
+								"label": "Height",
+								"value": "Height"
+							},
+							{
+								"label": "Weight",
+								"value": "Weight"
+							}
+						]
+					}
+				}
+			},
+			"calculator": {
+				"label": "Calculator",
+				"edit": {
+					"type": "select",
+					"props": {
+						"value": ":calc",
+						"options": [
+							{
+								"label": "greater than or equal to",
+								"value": "greater than or equal to"
+							},
+							{
+								"label": "less than",
+								"value": "less than"
+							}
+						]
+					}
+				}
+			},
+			"value": {
+				"label": "Number",
+				"edit": {
+					"type": "select",
+					"props": {
+						"value": ":value",
+						"options": [
+							{
+								"label": "0",
+								"value": 0
+							},
+							{
+								"label": "100",
+								"value": 100
+							},
+							{
+								"label": "200",
+								"value": 200
+							}
+						]
+					}
+				}
+			}
+		},
+		"list": {
+			"primary": "id",
+			"layout": {
+				"columns": [
+					{
+						"name": "Group",
+						"width": 23
+					},
+					{
+						"name": "Text",
+						"width": 1
+					}
+				],
+				"children": [
+					{
+						"name": "Indicator type",
+						"width": 8
+					},
+					{
+						"name": "Calculator",
+						"width": 8
+					},
+					{
+						"name": "Number",
+						"width": 8
+					}
+				]
+			}
+		}
+	}
+}
+```
+
+</Detail>
+
+## Props
+
+```ts
+interface IProps extends InputProps {
+	value: string
+	setting: string
+	query?: { [key: string]: string }
+}
+```
+
+## API
+
+| Properties | Description                                                                        | Type            | Default | Required | Version |
+| ---------- | ---------------------------------------------------------------------------------- | --------------- | ------- | -------- | ------- |
+| value      | bind value                                                                         | string          | -       | yes      |         |
+| setting    | setting name                                                                       | string          | -       | yes      |         |
+| query      | Submit parameter, which will be integrated into data as it is when submitting data | IProps['query'] | -       | No       |         |

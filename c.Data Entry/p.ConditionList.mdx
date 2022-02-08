@@ -1,0 +1,163 @@
+# ConditionList
+
+Condition list, supports CURD operation on the specified type of data list in Form and supports linkage.
+
+## Example
+
+<Notice type='warning'>Note: The condition list needs to be used with a specific setting. </Notice>
+
+```json
+{
+	"ConditionList": {
+		"label": "ConditionList",
+		"edit": {
+			"type": "conditionList",
+			"props": {
+				"setting": "survey",
+				"value": ":survey",
+				"query": {
+					"sort": "$index"
+				}
+			}
+		}
+	}
+}
+```
+
+<Detail title="/api/xiang/setting/survey">
+
+```json
+{
+	"label": "Questionnaire configuration",
+	"version": "1.0.0",
+	"description": "Questionnaire configuration",
+	"nodes": [],
+	"output": {
+		"options": {
+			"single choice": {
+				"one_row": false,
+				"columns": [
+					{
+						"type": "input",
+						"width": 19,
+						"props": {
+							"value": ":text",
+							"placeholder": "Please enter the option content"
+						}
+					},
+					{
+						"type": "label",
+						"width": 1,
+						"props": {
+							"value": "every"
+						}
+					},
+					{
+						"type": "inputNumber",
+						"width": 4,
+						"props": {
+							"value": ":score",
+							"min": 0,
+							"max": 100,
+							"placeholder": "Please enter a score"
+						}
+					}
+				]
+			},
+			"multiple choice": {
+				"one_row": false,
+				"columns": [
+					{
+						"type": "input",
+						"width": 20,
+						"props": {
+							"value": ":text",
+							"placeholder": "Please enter the option content"
+						}
+					},
+					{
+						"type": "inputNumber",
+						"width": 4,
+						"props": {
+							"value": ":score",
+							"min": 0,
+							"max": 100,
+							"placeholder": "Please enter a score"
+						}
+					}
+				]
+			},
+			"time": {
+				"one_row": true,
+				"columns": []
+			},
+			"number": {
+				"one_row": true,
+				"columns": [
+					{
+						"type": "inputNumber",
+						"width": 12,
+						"props": {
+							"value": ":min",
+							"min": 0,
+							"placeholder": "Minimum value, leave blank for unlimited"
+						}
+					},
+					{
+						"type": "inputNumber",
+						"width": 12,
+						"props": {
+							"value": ":max",
+							"min": 0,
+							"placeholder": "Minimum value, leave blank for unlimited"
+						}
+					}
+				]
+			},
+			"text": {
+				"one_row": true,
+				"columns": [
+					{
+						"type": "inputNumber",
+						"width": 12,
+						"props": {
+							"value": ":minLength",
+							"min": 0,
+							"placeholder": "Minimum length, no limit left blank"
+						}
+					},
+					{
+						"type": "inputNumber",
+						"width": 12,
+						"props": {
+							"value": ":maxLength",
+							"min": 0,
+							"placeholder": "Minimum length, no limit left blank"
+						}
+					}
+				]
+			}
+		}
+	}
+}
+```
+
+</Detail>
+
+## Props
+
+```ts
+interface IProps extends InputProps {
+	value: string
+	setting: string
+	query?: { [key: string]: string }
+}
+```
+
+## API
+
+| Properties | Description                                                                        | Type            | Default | Required | Version |
+| ---------- | ---------------------------------------------------------------------------------- | --------------- | ------- | -------- | ------- |
+| value      | bind value                                                                         | string          | -       | yes      |         |
+| setting    | setting name                                                                       | string          | -       | yes      |         |
+| query      | Submit parameter, which will be integrated into data as it is when submitting data | IProps['query'] | -       | No       |         |

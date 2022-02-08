@@ -1,0 +1,90 @@
+# Select
+
+Dropdown selector, an enhanced component for html5 select.
+
+## Scenes
+
+- Pop up a drop-down menu for the user to choose an action to use instead of a native selector, or when a more elegant multi-selector is needed.
+
+- When there are few options (less than 5 items), it is recommended to tile the options directly, using Radio is a better choice.
+
+## Example
+
+```json
+{
+	"Select": {
+		"label": "Select",
+		"edit": {
+			"type": "select",
+			"props": {
+				"value": ":kind.id",
+				"tree": true,
+				"searchable": true,
+				"remote": {
+					"api": "/api/kind/tree",
+					"query": {
+						"select": ["id", "name"],
+						"keyword": "where_name_like"
+					}
+				}
+			}
+		}
+	}
+}
+```
+
+## Props
+
+```ts
+interface IProps extends SelectProps<any> {
+	value: string
+	string?: '1' | '0' | undefined
+	options?: Array<{ label: string; value: string | number }>
+	remote?: {
+		api: string
+		query: {
+			// Whether to use value as query parameter
+			useValue?: boolean
+			// select the fields to return
+			select?: Array<string>
+		}
+	}
+	search?: {
+		api: string
+		key: string
+	}
+}
+```
+
+## API
+
+| Properties | Description                        | Type                     | Default | Required | Version |
+| ---------- | ---------------------------------- | ------------------------ | ------- | -------- | ------- |
+| value      | bind value                         | string                   | -       | yes      |         |
+| string     | whether to convert value to string | string                   | -       | no       |         |
+| options    | list of options                    | Array<[Option](#Option)> | -       | no       |         |
+| remote     | list of remote options             | [Remote](#Remote)        | -       | no       |         |
+| search     | remote search                      | [Search](#Search)        | -       | no       |         |
+
+### Option
+
+| Properties | Description | Type             | Required |
+| ---------- | ----------- | ---------------- | -------- |
+| label      | text        | string           | yes      |
+| value      | value       | string \| number | yes      |
+
+### Remote
+
+| Properties | Description | Type                      | Required |
+| ---------- | ----------- | ------------------------- | -------- |
+| api        | interface   | string                    | yes      |
+| query      | interface   | IProps['remote']['query'] | no       |
+
+### Search
+
+| Properties | Description         | Type   | Required |
+| ---------- | ------------------- | ------ | -------- |
+| api        | interface           | string | yes      |
+| key        | query parameter key | string | yes      |
+
+For other properties, see [Antd Select](https://ant.design/components/select/)

@@ -1,0 +1,44 @@
+# TextArea
+
+TextArea, which supports the input of a fairly long, unrestricted text.
+
+## Scenes
+
+- Site reviews.
+
+- Some detailed descriptions, such as user address, etc.
+
+- A comment in the feedback form.
+
+## Example
+
+```json
+{
+	"TextArea": {
+		"label": "TextArea",
+		"edit": {
+			"type": "textArea",
+			"props": {
+				"value": ":address",
+				"rows": 3
+			}
+		}
+	}
+}
+```
+
+## Props
+
+```ts
+interface IProps extends TextAreaProps {
+	value: string
+}
+```
+
+## API
+
+| Properties | Description | Type   | Default | Required | Version |
+| ---------- | ----------- | ------ | ------- | -------- | ------- |
+| value      | bind value  | string | -       | yes      |         |
+
+For other properties, see [Antd TextArea](https://ant.design/components/input/#Input.TextArea)

@@ -1,0 +1,47 @@
+# RangePicker 
+
+A control to enter or select a date range.
+
+## Scenes
+
+- When the user needs to input a date range, they can click the standard input box to pop up the date panel to select two dates and times.
+
+- Edit on the filter toolbar to query the specified data within the date range
+
+## Example
+
+<Notice type='warning'>
+	Note: When data entry related components are used in the filter of the chart page, the JSON
+	format is different.
+</Notice>
+
+```json
+{
+	"RangePicker": {
+		"label": "RangePicker",
+		"bind": "range",
+		"input": {
+			"type": "rangePicker",
+			"props": {
+				"placeholder": ["start time", "end time"]
+			}
+		}
+	}
+}
+```
+
+## Props
+
+```ts
+interface IProps extends TimeRangePickerProps {
+	value: string
+}
+```
+
+## API
+
+| Properties | Description | Type   | Default | Required | Version |
+| ---------- | ----------- | ------ | ------- | -------- | ------- |
+| value      | bind value  | string | -       | yes      |         |
+
+See [Antd RangePicker](https://ant.design/components/date-picker/#RangePicker) for other properties

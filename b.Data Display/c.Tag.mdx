@@ -1,0 +1,72 @@
+# Tag
+
+Labels, often used to display rows of data with characteristic variables.
+
+## Scenes
+
+- customer type
+
+- Product Types
+
+- the current state of the object
+
+## Example
+
+```json
+{
+	"state": {
+		"label": "Status",
+		"view": {
+			"type": "tag",
+			"props": {
+				"value": ":status",
+				"options": [
+					{
+						"label": "On",
+						"value": "enabled",
+						"color": "#41b883"
+					},
+					{
+						"label": "Close",
+						"value": "disabled",
+						"color": "#f50"
+					}
+				]
+			}
+		}
+	}
+}
+```
+
+## Props
+
+```ts
+interface IProps extends TagProps {
+	value: string | Array<{ label: string; color?: string }>
+	options: Array<{ label: string; value: string | number; color?: string }>
+}
+```
+
+## API
+
+| Properties | Description      | Type                                        | Default | Required | Version |
+| ---------- | ---------------- | ------------------------------------------- | ------- | -------- | ------- |
+| value      | literal          | string \| `Array<string>` \| `Array<Value>` | -       | yes      |         |
+| options    | possible options | `Array<Option>`                             | -       | no       |         |
+
+### Value
+
+| Properties | Description      | Type   | Required |
+| ---------- | ---------------- | ------ | -------- |
+| label      | text             | string | yes      |
+| color      | background color | string | no       |
+
+### Option
+
+| Properties | Description      | Type             | Required |
+| ---------- | ---------------- | ---------------- | -------- |
+| label      | text             | string           | yes      |
+| value      | option value     | string \| number | yes      |
+| color      | background color | string           | no       |
+
+For other properties, see [Antd Tag](https://ant.design/components/tag/)

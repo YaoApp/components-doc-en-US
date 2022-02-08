@@ -1,0 +1,351 @@
+# Table & Form 
+
+Tables are often used to present lists of structured data; forms are used to display and edit a single piece of data.
+
+## Scenes
+
+- Display data row information of database entity objects
+
+- Embed Form to provide data reference
+
+## Example
+
+<Notice type='warning'>
+	Note: Table and Form components can be used either as pages or as separate components, with
+	differences in usage and presentation.
+</Notice>
+
+### Use as a page
+
+<Detail title="Show Code">
+
+```json
+{
+	"name": "Data",
+	"version": "1.0.0",
+	"decription": "Data Management Form",
+	"bind": {
+		"model": "data",
+		"withs": { "device": {} }
+	},
+	"apis": {
+		"search": {
+			"default": [
+				{
+					"withs": { "device": {} },
+					"orders": [{ "column": "updated_at", "option": "desc" }]
+				},
+				null,
+				10
+			]
+		}
+	},
+	"columns": {
+		"value": { "@": "column.TextArea", "in": ["value", ":value.data", 4] },
+		"owning device": { "@": "column.owning_device" },
+		"created": { "@": "column.created" },
+		"update time": { "@": "column.update_time" }
+	},
+	"filters": {
+		"keyword": { "@": "filter.keyword", "in": ["where.key.match"] }
+	},
+	"list": {
+		"primary": "id",
+		"layout": {
+			"columns": [
+				{ "name": "ID", "width": 80 },
+				{ "name": "owning device", "width": 100 },
+				{ "name": "key name", "width": 100 },
+				{ "name": "number", "width": 200 },
+				{ "name": "update time", "width": 160 },
+				{ "name": "creation time", "width": 160 }
+			],
+			"filters": [{ "name": "keyword" }]
+		},
+		"actions": {
+			"pagination": { "props": { "showTotal": true } }
+		},
+		"option": {}
+	},
+	"edit": {
+		"primary": "id",
+		"layout": {
+			"fieldset": [
+				{
+					"columns": [
+						{ "name": "owning device", "width": 24 },
+						{ "name": "key name", "width": 24 },
+						{ "name": "number", "width": 24 }
+					]
+				}
+			]
+		},
+		"actions": {
+			"cancel": {},
+			"save": { "@": "action.save" },
+			"delete": { "@": "action.delete" }
+		}
+	}
+}
+```
+
+</Detail>
+
+### Use as a component
+
+```json
+{
+	"Associated Services": {
+		"label": "Associated Services",
+		"edit": {
+			"type": "table",
+			"props": {
+				"name": "service",
+				"query": {
+					"id": ":id",
+					"name": ":manu.name"
+				}
+			}
+		}
+	}
+}
+```
+
+## Props
+
+### Columns
+
+<Detail title="Show Code">
+
+```ts
+type BaseComponent = 'a' | 'label' | 'image' | 'tag' | 'tooltip' | 'chartModal' | 'formModal'
+type FormComponent =
+	| 'input'
+	| 'inputNumber'
+	| 'select'
+	| 'textArea'
+	| 'datePicker'
+	| 'rangePicker'
+	| 'mentions'
+	| 'upload'
+	| 'tree'
+	| 'treeSelect'
+	| 'checkbox'
+	| 'cascader'
+	| 'schedule'
+	| 'dynamicList'
+	| 'conditionList'
+	| 'conditionForm'
+
+interface Columns {
+	[key: string]: {
+		label: string
+		view: {
+			type: BaseComponent
+			props: { [key: string]: any }
+		}
+		edit: {
+			type: FormComponent
+			props: { [key: string]: any }
+		}
+	}
+}
+```
+
+</Detail>
+
+### List
+
+<Detail title="Show Code">
+
+```ts
+interface List {
+	// primary key
+	primary: string
+	// Page Layout
+	layout: {
+		// table layout information
+		columns: Array<{
+			// component name
+			name: string
+			// column width, fixed width
+			width?: number
+		}>
+		// filters layout information
+		filters: Array<{
+			// component name
+			name: string
+			// column width, 24 grid
+			width?: number
+		}>
+	}
+	actions?: {
+		// Whether to display pagination navigation
+		pagination?: {
+			props?: {
+				// Whether to display the prompt of all the numbers
+				showTotal?: boolean
+			}
+		}
+	}
+	option?: {
+		// support batch modification
+		batch?: {
+			// Whether to support batch delete
+			delete: any
+			// data item
+			columns: Array<{
+				name: string
+				width?: number
+			}>
+		}
+		// custom table action items
+		operation?: {
+			// hide the default view button
+			hideView?: boolean
+			// hide the default edit button
+			hideEdit?: boolean
+			// expand the action item
+			unfold?: boolean
+			// width of the column of action items
+			width?: number
+			// Enable table content scrolling
+			scroll?: {
+				x: number
+			}
+			// checkbox option button
+			checkbox?: Array<{
+				// bind value
+				value: string
+				// Whether the label is displayed
+				visible_label?: boolean
+				// state list
+				status: Array<{
+					label: string
+					value: string | number
+				}>
+			}>
+			// custom action list
+			items?: Array<{
+				// open with popup
+				useModal?: boolean
+				// Form state
+				type?: 'view' | 'edit'
+				// operation name
+				title: string
+				// icon, refer to the Icon component
+				icon: string
+				// associated form name
+				formName: string
+				// associated form ID
+				formId: string
+			}>
+		}
+	}
+}
+```
+
+</Detail>
+
+### Form
+
+<Detail title="Show Code">
+
+```ts
+interface Tab {
+	tab: boolean
+	items: Array<{
+		// tab title
+		name: string
+		columns: {
+			// component name
+			name: string
+			// column width, fixed width
+			width?: number
+		}
+	}>
+}
+
+interface Form {
+	// primary key
+	primary: string
+	// Page Layout
+	layout: {
+		// measure
+		fieldset: Array<{
+			// title
+			title: string
+			// describe
+			description: string
+			// layout, support tab
+			columns: Array<
+				| {
+						// component name
+						name: string
+						// column width, fixed width
+						width?: number
+				  }
+				| Tab
+			>
+		}>
+	}
+	// supported operations
+	actions: {
+		cancel: any
+		save: {
+			type: 'button'
+			props: {
+				label: string
+			}
+		}
+		delete: {
+			type: 'button'
+			props: {
+				label: string
+			}
+		}
+	}
+	// custom action
+	option?: {
+		// Turn on dev mode, don't return to the list page after clicking save
+		dev?: boolean
+		operation?: Array<
+			// Call the specified api, and data supports variables
+			| {
+					title: string
+					icon: string
+					api: string
+					type?: 'success' | 'warning' | 'danger'
+					confirm?: boolean
+					disabled?: string
+					data: { [key: string]: string }
+			  }
+			// open new link
+			| {
+					title: string
+					icon: string
+					link?: string
+					data: { [key: string]: string }
+			  }
+		>
+	}
+}
+```
+
+</Detail>
+
+## API
+
+### Use as a page
+
+| Properties | Description                      | Type                | Default | Required | Version |
+| ---------- | -------------------------------- | ------------------- | ------- | -------- | ------- |
+| name       | page title                       | string              | -       | yes      |         |
+| version    | version                          | string              | -       | no       |         |
+| decription | page description                 | string              | -       | no       |         |
+| bind       | data binding                     | [Bind](/)           | -       | yes      |         |
+| apis       | data interface                   | [Api](/)            | -       | yes      |         |
+| columns    | Page related components          | [Columns](#Columns) | -       | yes      |         |
+| filters    | Filter column related components | [Columns](#Columns) | -       | yes      |         |
+| list       | Table page description           | [List](#List)       | -       | yes      |         |
+| edit       | Form Page Description            | [Form](#Form)       | -       | Yes      |         |

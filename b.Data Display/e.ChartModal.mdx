@@ -1,0 +1,43 @@
+# ChartModal
+
+Chart pop-up window, allowing the content of the chart page to be displayed in the pop-up window.
+
+## Scenes
+
+- Use on Table for quick browsing
+
+- Data cross analysis between different modules
+
+## Example
+
+```json
+{
+	"Chart Popup": {
+		"label": "Chart Popup",
+		"view": {
+			"type": "chartModal",
+			"props": {
+				"name": "log",
+				"value": ":created_at",
+				"format": "YYYY MM month DD day hh:mm:ss"
+			}
+		}
+	}
+}
+```
+
+## Props
+
+```ts
+interface IProps {
+	name: string
+}
+```
+
+## API
+
+| Properties | Description | Type   | Default | Required | Version |
+| ---------- | ----------- | ------ | ------- | -------- | ------- |
+| name       | chart name  | string | -       | yes      |         |
+| value      | text        | string | -       | yes      |         |
+| format     | format      | string | -       | no       |         |

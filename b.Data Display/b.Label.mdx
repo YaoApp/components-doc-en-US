@@ -1,0 +1,39 @@
+# Label
+
+Plain text, for presentation only.
+
+## Scenes
+
+- username
+
+- Field description
+
+## Example
+
+```json
+{
+	"Label": {
+		"label": "Text",
+		"view": {
+			"type": "label",
+			"props": {
+				"value": ":name"
+			}
+		}
+	}
+}
+```
+
+## Props
+
+```ts
+interface IProps {
+	value: string | number
+}
+```
+
+## API
+
+| Properties | Description | Type   | Default | Required | Version |
+| ---------- | ----------- | ------ | ------- | -------- | ------- |
+| value      | text        | string | -       | yes      |         |

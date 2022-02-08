@@ -1,0 +1,52 @@
+# Pie
+
+Pie chart, usually used to show the proportion of data.
+
+## Scenes
+
+- The proportion of different parts of sales.
+
+- Ratio of male to female population.
+
+## Example
+
+```json
+{
+	"name": "Industry Distribution",
+	"width": 9,
+	"type": "pie",
+	"props": {
+		"x_key": "name",
+		"series": [
+			{
+				"name": "Quantity",
+				"type": "pie",
+				"roseType": "area",
+				"itemStyle": {
+					"borderRadius": 3
+				}
+			}
+		]
+	}
+}
+```
+
+## Props
+
+```ts
+export interface IProps {
+	name: string
+	height: number
+	hide_label?: boolean
+}
+```
+
+## API
+
+| Properties | Description | Type   | Default | Required | Version |
+| ---------- | ----------- | ------ | ------- | -------- | ------- |
+| name       | data key    | string | -       | yes      |         |
+| height     | height      | string | -       | yes      |         |
+| hide_label | hide title  | string | -       | no       |         |
+
+See [Echarts Pie](https://echarts.apache.org/examples/en/index.html#chart-type-pie) for more properties

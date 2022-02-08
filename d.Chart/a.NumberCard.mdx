@@ -1,0 +1,66 @@
+# NumberCard
+
+Digital cards, usually used to display key indicator information.
+
+## Example
+
+<Notice type='warning'>
+	Note: Chart-related components can be used in the setting of Chart, Kanban, and Screen pages,
+	as well as in Form, and the writing method will be different.
+</Notice>
+
+### Used on the chart page
+
+```json
+{
+	"name": "Cloud computing related companies",
+	"width": 6,
+	"type": "numberCard",
+	"props": {
+		"icon": "cloud-outline",
+		"unit": "home"
+	}
+}
+```
+
+### Use on form pages
+
+```json
+{
+	"table chart": {
+		"label": "Table Chart",
+		"edit": {
+			"type": "chart",
+			"props": {
+				"type": "numberCard",
+				"value": ":service",
+				"hide_label": true,
+				"chart_props": {
+					"height": 240,
+					"icon": "cloud-outline",
+					"unit": "home"
+				}
+			}
+		}
+	}
+}
+```
+
+## Props
+
+```ts
+interface IProps {
+	name: string
+	icon: string
+	unit?: string
+}
+```
+
+## API
+
+| Properties | Description     | Type   | Default | Required | Version |
+| ---------- | --------------- | ------ | ------- | -------- | ------- |
+| name       | data key        | string | -       | yes      |         |
+| width      | number of grids | string | -       | yes      |         |
+| icon       | icon            | string | -       | yes      |         |
+| unit       | unit            | string | -       | no       |         |

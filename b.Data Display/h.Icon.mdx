@@ -1,0 +1,43 @@
+# Icon
+
+Semantic vector graphics. To use icon components, you need to know some basic usage:
+
+## Scenes
+
+- Instead of text, express content visually
+
+- As a symbol, giving hints to users
+
+## Example
+
+<Notice type='warning'>
+	Icon components can be used in many places, such as table custom options, and form custom
+	actions, etc. Note that the source of the icon used will be different for different naming
+	methods.
+</Notice>
+
+```tsx
+<Icon name='icon-download' size={18}></Icon>
+```
+
+## Props
+
+```ts
+/** Icon component, supports the following two icon libraries:
+ * feather icon https://feathericons.com/
+ * material design icon https://fonts.google.com/icons
+ */
+
+interface IProps {
+	/** Chart style class */
+	className?: string
+	/** Icon name, starts with `icon` for feather icon and ends with `outline/filled` for material design icon */
+	name: string
+	/** Icon size in px */
+	size?: number
+	/** Icon color, applicable to all font colors */
+	color?: string
+	/** Click event */
+	onClick?: () => void
+}
+```

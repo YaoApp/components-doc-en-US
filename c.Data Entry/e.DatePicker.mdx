@@ -1,0 +1,43 @@
+# DatePicker
+
+A control to enter or select a date.
+
+## Scenes
+
+- When users need to input a date, they can click the standard input box to pop up the date panel for selection.
+
+- Deadlines for presenting or editing campaigns such as marketing
+
+## Example
+
+```json
+{
+	"DatePicker": {
+		"label": "DatePicker",
+		"edit": {
+			"type": "datePicker",
+			"props": {
+				"value": ":expired_at"
+			}
+		}
+	}
+}
+```
+
+## Props
+
+```ts
+type IProps = DatePickerProps & {
+	value: string
+	format?: string
+}
+```
+
+## API
+
+| Properties | Description | Type   | Default | Required | Version |
+| ---------- | ----------- | ------ | ------- | -------- | ------- |
+| value      | bind value  | string | -       | yes      |         |
+| format     | format      | string | -       | no       |         |
+
+See [Antd DatePicker](https://ant.design/components/datepicker/) for other properties
