@@ -1,0 +1,126 @@
+# Actions
+
+Actions can be used in the following scenarios:
+
+- `Table.operation.actions`
+- `Form.operation.actions`
+
+Actions are abstractions for some common behaviors, and the following Actions are built-in for processing logic:
+
+- Common.openModal
+- Common.historyPush
+- Common.historyBack
+- Table.save
+- Table.delete
+- Form.save
+- Form.delete
+- Service.\*
+- Studio.\*
+
+## Attributes
+
+- title: Action name
+- icon: Action icon
+- action: the specified Action
+- style?: style ('danger' or 'success', optional)
+- disabled?: Disable (`{bind:string;value: string | Array<string>}`, not required)
+- confirm?: Second confirmation pop-up window (not required)
+
+## Example
+
+`pet.form.json`
+
+```json
+{
+	"name": "::Pet Admin",
+	"action": {
+		"bind": { "model": "pet", "option": { "withs": { "doctor": {} } } }
+	},
+	"layout": {
+		"primary": "id",
+		"operation": {
+			"preset": { "save": { "back": true }, "back": {} },
+			"actions": [
+				{
+					"title": "Cure {{name}}",
+					"icon": "icon-check",
+					"action": {
+						"Form.save": { "id": "{{id}}", "status": "cured" }
+					},
+					"style": "success",
+					"confirm": {
+						"title": "Prompt",
+						"desc": "Confirm to change {{name}} to healing state?"
+					}
+				}
+			]
+		}
+	}
+}
+```
+
+### Common.openModal
+
+Open a popup.
+
+#### Attributes
+
+- width: the width of the popup window (px)
+- Form?: The content is specified as Form (`{type: 'view' | 'edit';model:string}`, not required)
+- Page?: The content is specified as Page (`{type: 'chart' | 'edit';model:string}`, not required)
+
+### Common.historyPush
+
+Make routing jumps.
+
+#### Attributes
+
+- pathname: jump path
+- search?: routing query field (optional)
+
+### Common.historyBack
+
+Return to the previous page.
+
+### Table.save
+
+Save Table data items, the parameter is the key-value interface, and must contain the primary key.
+
+### Table.delete
+
+Delete the Table data item, the parameter is an empty object.
+
+### Form.save
+
+Save Form data, the parameter is the key-value interface, and must contain the primary key.
+
+### Form.delete
+
+Delete Form data.
+
+#### Attributes
+
+The following two attributes are mutually exclusive attributes, you can choose one of them.
+
+- back?: Whether to return to the previous page after performing the above delete action (not required)
+- pathname?: The path to jump to after performing the above delete action (not required)
+
+### Service.\*
+
+Call the specified application cloud function.
+
+#### Attributes
+
+- The \* after Service. is the cloud function file name
+- method: cloud function
+- args: cloud function parameters (`Array<any>`, not required)
+
+### Studio.\*
+
+Call the specified Studio cloud function.
+
+#### Attributes
+
+- The \* after Studio. is the file name of the Studio cloud function
+- method: cloud function
+- args: cloud function parameters (`Array<any>`, not required)

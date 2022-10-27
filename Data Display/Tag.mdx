@@ -2,7 +2,7 @@
 
 Labels, often used to display rows of data with characteristic variables.
 
-## Scenes
+## Scenes to be used
 
 - customer type
 
@@ -15,11 +15,10 @@ Labels, often used to display rows of data with characteristic variables.
 ```json
 {
 	"state": {
-		"label": "Status",
+		"bind": "status",
 		"view": {
-			"type": "tag",
+			"type": "Tag",
 			"props": {
-				"value": ":status",
 				"options": [
 					{
 						"label": "On",
@@ -42,17 +41,30 @@ Labels, often used to display rows of data with characteristic variables.
 
 ```ts
 interface IProps extends TagProps {
-	value: string | Array<{ label: string; color?: string }>
-	options: Array<{ label: string; value: string | number; color?: string }>
+	options: Array<Option>
+	remote?: Request
+	pure?: boolean
+}
+
+interface Option {
+	label: string
+	value: string
+	color?: string
+}
+
+interface Request {
+	api: string
+	params?: { [key: string]: Common.DynamicValue }
 }
 ```
 
 ## API
 
-| Properties | Description      | Type                                        | Default | Required | Version |
-| ---------- | ---------------- | ------------------------------------------- | ------- | -------- | ------- |
-| value      | literal          | string \| `Array<string>` \| `Array<Value>` | -       | yes      |         |
-| options    | possible options | `Array<Option>`                             | -       | no       |         |
+| Properties | Description            | Type            | Default | Required | Version |
+| ---------- | ---------------------- | --------------- | ------- | -------- | ------- |
+| options    | possible options       | `Array<Option>` | -       | no       |         |
+| remote     | use the requested data | `Request`       | -       | no       |         |
+| pure       | no style               | boolean         | -       | no       |         |
 
 ### Value
 
@@ -69,4 +81,4 @@ interface IProps extends TagProps {
 | value      | option value     | string \| number | yes      |
 | color      | background color | string           | no       |
 
-For other properties, see [Antd Tag](https://ant.design/components/tag/)
+For other properties, see [Antd Tag](https://ant-design.gitee.io/components/tag-cn/)

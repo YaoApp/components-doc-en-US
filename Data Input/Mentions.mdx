@@ -1,0 +1,41 @@
+# Mentions
+
+Mention, usually used to associate or notify someone.
+
+## Scenes to be used
+
+- When a notification needs to be sent to one or more people in a chat application.
+
+- In the background system, when the current data needs to be notified or associated with one or several objects.
+
+## Example
+
+```json
+{
+	"Mentions": {
+		"bind": "Mentions_value",
+		"edit": {
+			"type": "Mentions",
+			"props": {
+				"autoSize": true,
+				"xProps": {
+					"search": {
+						"api": "/api/select/search",
+						"key": "keyword"
+					}
+				}
+			}
+		}
+	}
+}
+```
+
+## Props
+
+<Notice type='success'>Mentions component has the same API as Select component. </Notice>
+
+```ts
+interface IProps extends Remote.IProps, MentionProps {}
+```
+
+For other properties, see [Antd Mentions](https://ant-design.gitee.io/components/mentions-cn/)

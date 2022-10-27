@@ -1,0 +1,43 @@
+# Select
+
+Dropdown selector, an enhanced component for html5 select.
+
+## Scenes to be used
+
+- Pop up a drop-down menu for the user to choose an action to use instead of a native selector, or when a more elegant multi-selector is needed.
+
+- When there are few options (less than 5 items), it is recommended to tile the options directly, using Radio is a better choice.
+
+## Example
+
+```json
+{
+	"Select": {
+		"bind": "Select_value",
+		"edit": {
+			"type": "Select",
+			"props": {
+				"tree": true,
+				"searchable": true,
+				"xProps": {
+					"remote": {
+						"api": "/api/kind/tree",
+						"search": {
+							"select": ["id", "name"],
+							"keyword": "where_name_like"
+						}
+					}
+				}
+			}
+		}
+	}
+}
+```
+
+## Props
+
+```ts
+interface IProps extends Remote.IProps, SelectProps {}
+```
+
+For other properties, see [Antd Select](https://ant-design.gitee.io/components/select-cn/)

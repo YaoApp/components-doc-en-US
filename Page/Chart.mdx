@@ -1,0 +1,108 @@
+# Chart
+
+Charts and dashboards to visualize structured data to present clearer and easier-to-understand data metrics.
+
+## Example
+
+<Notice type='warning'>
+	Note: The Chart component can be used both as a page and as a separate component. The
+	difference between the big screen and the Kanban board is that the Kanban board does not have
+	a filter toolbar, and the button in the upper right corner can be linked to the big screen.
+</Notice>
+
+<Detail title="Show Code">
+
+```json
+{
+	"name": "Pet Hospital Data Chart",
+
+	"action": {
+		"before:data": "scripts.stat.BeforeData",
+		"data": { "process": "scripts.stat.Data", "default": ["2022-09-20"] },
+		"after:data": "scripts.stat.AfterData"
+	},
+
+	"layout": {
+		"operation": {
+			"actions": [
+				{
+					"title": "Jump to the big screen",
+					"icon": "icon-airplay",
+					"action": { "Common.historyPush": { "pathname": "/x/Cool/demo" } }
+				}
+			]
+		},
+
+		"filter": {
+			"columns": [{ "name": "time interval", "width": 6 }]
+		},
+
+		"chart": {
+			"columns": [{ "name": "Number of pets", "width": 6 }]
+		}
+	},
+
+	"fields": {
+		"filter": {
+			"time interval": {
+				"bind": "range",
+				"edit": { "type": "RangePicker", "props": {} }
+			}
+		},
+		"chart": {
+			"Number of pets": {
+				"bind": "pet_count",
+				"link": "/x/Table/pet",
+				"view": { "type": "Number", "props": { "unit": "unit" } }
+			}
+		}
+	}
+}
+```
+
+</Detail>
+
+## Props
+
+```ts
+type ChartComponent = 'numberCard' | 'table' | 'line' | 'bar' | 'lineBar' | 'map' | 'pie'
+
+interface IProps {
+	// page title
+	name: string
+	// Version
+	version?: string
+	// page description
+	description?: string
+	// Refer to Yao's definition of Node
+	nodes: Array<Node>
+	// Refer to Yao's definition of Api
+	apis: APIs
+	// Refer to Yao's definition of Output
+	output: Output
+	// page description
+	layout: {
+		operation: {
+			actions: Actions
+		}
+		// filter items
+		filters?: {
+			columns: Array<{
+				name: string
+				width?: number
+			}>
+		}
+		// graph
+		chart: {
+			columns: Array<{
+				name: string
+				width?: number
+			}>
+		}
+	}
+	fields: {
+		filters?: Common.Fields
+		chart: Common.Fields
+	}
+}
+```

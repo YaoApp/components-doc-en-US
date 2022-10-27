@@ -1,0 +1,31 @@
+# Input
+
+Entering content through the mouse or keyboard is the most basic form field wrapper.
+
+## Scenes to be used
+
+- When the user is required to enter form field content.
+
+- Provide combination input box, input box with search, and size selection.
+
+## Example
+
+```json
+{
+	"Input": {
+		"bind": "Input_value",
+		"edit": {
+			"type": "Input",
+			"props": {}
+		}
+	}
+}
+```
+
+## Props
+
+```ts
+interface IProps extends InputProps, Component.PropsEditComponent {}
+```
+
+For other properties, see [Antd Input](https://ant-design.gitee.io/components/input-cn/)

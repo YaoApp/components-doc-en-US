@@ -1,0 +1,43 @@
+# Tree
+
+Multi-level structured list.
+
+## Scenes to be used
+
+Folders, organizational structures, biological classifications, countries and regions, etc., most of the structures in the world are tree structures. Using the tree control can fully display the hierarchical relationship, and has interactive functions such as expanding and collapsing selection.
+
+- Display and edit several levels of product categories.
+
+- Multiple choices of countries, provinces and cities.
+
+## Example
+
+```json
+{
+	"Tree": {
+		"bind": "Tree_value",
+		"edit": {
+			"type": "Tree",
+			"props": {
+				"checkable": true,
+				"xProps": {
+					"remote": {
+						"api": "/api/tree/search",
+						"search": {
+							"select": ["id", "name"]
+						}
+					}
+				}
+			}
+		}
+	}
+}
+```
+
+## Props
+
+```ts
+interface IProps extends TreeProps, Component.PropsEditComponent {}
+```
+
+For other properties, see [Antd Tree](https://ant-design.gitee.io/components/tree-cn/)

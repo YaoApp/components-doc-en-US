@@ -1,0 +1,58 @@
+# CheckboxGroup
+
+Group of checkboxes.
+
+## Scenes to be used
+
+- When making multiple selections from a set of options.
+
+- Instead of the Select component, display options directly.
+
+## Example
+
+```json
+{
+	"CheckboxGroup": {
+		"bind": "CheckboxGroup_value",
+		"edit": {
+			"type": "CheckboxGroup",
+			"props": {
+				"options": [
+					{
+						"label": "Apple",
+						"value": 1
+					},
+					{
+						"label": "Pear",
+						"value": 2
+					},
+					{
+						"label": "Orange",
+						"value": 3
+					}
+				]
+			}
+		}
+	}
+}
+```
+
+## Props
+
+```ts
+interface Option {
+	label: string
+	value: string
+	disabled?: boolean
+}
+
+type IProps = typeof Group & Component.PropsEditComponent & {}
+```
+
+## API
+
+| Properties | Description     | Type              | Default | Required | Version |
+| ---------- | --------------- | ----------------- | ------- | -------- | ------- |
+| options    | list of options | IProps['options'] | -       | no       |         |
+
+For other properties, see [Antd CheckboxGroup](https://ant-design.gitee.io/components/checkbox-cn/#Checkbox-Group)

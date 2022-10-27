@@ -1,0 +1,44 @@
+# Cascader
+
+Cascading selection boxes.
+
+## scenes to be used
+
+- Need to select from a set of related data sets, such as provinces, municipalities, company levels, classification of things, etc.
+
+- When selecting from a larger data set, separate with multi-level classification for easy selection.
+
+- Compared with the Select component, the selection can be completed in the same floating layer, which has a better experience.
+
+## Example
+
+```json
+{
+	"Cascader": {
+		"bind": "Cascader_value",
+		"edit": {
+			"type": "Cascader",
+			"props": {
+				"showSearch": true,
+				"placeholder": "Please select the manufacturer",
+				"xProps": {
+					"remote": {
+						"api": "/api/cascader/search",
+						"query": {
+							"select": ["id", "name"]
+						}
+					}
+				}
+			}
+		}
+	}
+}
+```
+
+## Props
+
+```ts
+interface IProps extends Remote.IProps, CascaderProps<any> {}
+```
+
+For other properties, see [Antd Cascader](https://ant-design.gitee.io/components/cascader-cn/)

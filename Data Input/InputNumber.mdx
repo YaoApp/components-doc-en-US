@@ -1,0 +1,30 @@
+# InputNumber
+
+With the mouse or keyboard, enter a numerical value within the range.
+
+## Scenes to be used
+
+- When it is necessary to obtain standard values.
+
+- Provides formatted numeric input to constrain the input.
+
+## Example
+
+```json
+{
+	"InputNumber": {
+		"bind": "InputNumber_value",
+		"edit": {
+			"props": {}
+		}
+	}
+}
+```
+
+## Props
+
+```ts
+interface IProps extends InputNumberProps, Component.PropsEditComponent {}
+```
+
+For other properties, see [Antd InputNumber](https://ant-design.gitee.io/components/input-number-cn/)

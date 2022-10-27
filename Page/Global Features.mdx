@@ -1,0 +1,124 @@
+# Global Features
+
+## Fields
+
+```ts
+interface Fields {
+	[key: string]: {
+		bind: string
+		view?: {
+			bind?: string
+			type: string
+			props: any
+		}
+		edit?: {
+			bind?: string
+			type: string
+			props: any
+		}
+	}
+}
+```
+
+## Remote
+
+```ts
+export declare namespace Remote {
+	interface IProps extends Component.PropsEditComponent {
+		xProps: {
+			remote?: Request
+			search?: Request & { key: string }
+		}
+	}
+}
+
+interface Request {
+	api: string
+	params?: { [key: string]: any }
+}
+```
+
+## Component
+
+```ts
+export declare namespace Component {
+	interface Props {
+		__namespace: string
+		__primary: string
+		__type: FormType
+		__bind: string
+		__name: string
+		__data_item: any
+	}
+
+	interface PropsEditComponent extends Props {
+		style?: CSSProperties
+		itemProps?: FormItemProps
+	}
+
+	interface PropsViewComponent extends Props {
+		__value: any
+	}
+}
+```
+
+## Dynamic Value
+
+Dynamic values ​​can be used in the following scenarios:
+
+- `Table.operation.actions`
+- `Table.fields`
+- `Form.operation.actions`
+- `Form.fields`
+
+The dynamic value is to dynamically parse the data item where the current component is located, and the parsing syntax is consistent with [mustache](https://www.npmjs.com/package/mustache).
+
+### Grammar
+
+- General variable: `{{id}}`
+- Multi-layered objects: `{{person.age}}`
+
+### Example
+
+Change the state of the current data item calling interface:
+
+`pet.form.json`
+
+```json
+{
+	"name": "::Pet Admin",
+	"action": {
+		"bind": { "model": "pet", "option": { "withs": { "doctor": {} } } }
+	},
+	"layout": {
+		"primary": "id",
+		"operation": {
+			"preset": { "save": { "back": true }, "back": {} },
+			"actions": [
+				{
+					"title": "Cure {{name}}",
+					"icon": "icon-check",
+					"action": {
+						"Form.save": { "id": "{{id}}", "status": "cured" }
+					},
+					"style": "success",
+					"confirm": {
+						"title": "Tips",
+						"desc": "Are you sure to change {{name}} to heal?"
+					}
+				}
+			]
+		}
+	}
+}
+```
+
+## Unlimited page width
+
+In all page settings, you can cancel the page width limit by configuring as follows:
+
+```json
+{
+	"config": { "full": true }
+}
+```

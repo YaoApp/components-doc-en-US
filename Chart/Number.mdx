@@ -1,0 +1,48 @@
+# NumberCard
+
+Digital cards, usually used to display key indicator information.
+
+### Used on the chart page
+
+```json
+{
+	"Number of pets_last month": {
+		"bind": "prev_pet_count",
+		"link": "/x/Table/pet",
+		"view": {
+			"type": "Number",
+			"props": {
+				"cardStyle": { "padding": 0 },
+				"unit": "unit",
+				"prev_title": "Last month data"
+			}
+		}
+	}
+}
+```
+
+## Props
+
+```ts
+interface IProps {
+	data:
+		| number
+		| {
+				current: number
+				prev: number
+		  }
+	prefix?: string
+	unit?: string
+	decimals?: number
+	prev_title?: string
+}
+```
+
+## API
+
+| Properties | Description            | Type   | Default | Required | Version |
+| ---------- | ---------------------- | ------ | ------- | -------- | ------- |
+| name       | data key               | string | -       | yes      |         |
+| unit       | unit                   | string | -       | no       |         |
+| decimals   | decimal point          | number | -       | no       |         |
+| prev_title | title of previous data | string | -       | no       |         |

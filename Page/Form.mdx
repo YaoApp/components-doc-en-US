@@ -1,0 +1,215 @@
+# Form
+
+## Attributes
+
+- name: form name
+- layout.primary: primary key
+- layout.operation.preset?.save: preset save button (optional)
+- layout.operation.preset?.save?.back: whether to return after saving (not required)
+- layout.operation.actions?:
+- layout.form.sections: field descriptions (`Array<Section>`)
+- layout?.config?.showAnchor?: Whether to show the right anchor navigation
+- fields: `Fields`
+
+### Section
+
+```ts
+interface Section {
+	title?: string
+	desc?: string
+	columns: Array<Column>
+}
+
+interface BaseColumn {
+	name: string
+	width?: number
+}
+
+interface RawTab {
+	width?: number
+	tabs: Array<Section>
+}
+
+type Column = BaseColumn | RawTab
+```
+
+Tabs will be rendered to support switching tab bars.
+
+## Example
+
+```json
+{
+	"name": "::Pet Admin",
+	"action": {
+		"bind": { "model": "pet", "option": { "withs": { "doctor": {} } } }
+	},
+	"layout": {
+		"primary": "id",
+		"operation": {
+			"preset": { "save": { "back": true }, "back": {} },
+			"actions": [
+				{
+					"title": "Delete",
+					"icon": "icon-trash-2",
+					"action": { "Form.delete": { "pathname": "/x/Table/env" } },
+					"style": "danger",
+					"confirm": {
+						"title": "Tips",
+						"desc": "Confirm the deletion, the data cannot be recovered after deletion?"
+					}
+				},
+				{
+					"title": "Cure {{name}}",
+					"icon": "icon-check",
+					"action": {
+						"Form.save": { "id": ":id", "status": "cured" }
+					},
+					"style": "success",
+					"confirm": {
+						"title": "Prompt",
+						"desc": "Confirm to change to healing state? {{name}}"
+					}
+				},
+				{
+					"title": "Test Cloud Functions",
+					"icon": "icon-cloud",
+					"action": {
+						"Service.foo": {
+							"method": "Bar",
+							"args": ["{{id}}", "{{name}}"]
+						}
+					}
+				},
+				{
+					"title": "Test Studio",
+					"icon": "icon-layers",
+					"action": {
+						"Studio.hello": {
+							"method": "World",
+							"args": ["{{id}}", "{{name}}"]
+						}
+					}
+				}
+			]
+		},
+		"form": {
+			"props": {},
+			"sections": [
+				{
+					"title": "Basic Information",
+					"desc": "Some basic information about pets",
+					"columns": [
+						{ "name": "table", "width": 24 },
+						{
+							"width": 24,
+							"tabs": [
+								{
+									"title": "Base",
+									"columns": [
+										{ "name": "ID", "width": 12 },
+										{ "name": "name", "width": 12 }
+									]
+								},
+								{
+									"title": "More",
+									"columns": [{ "name": "status", "width": 12 }]
+								}
+							]
+						}
+					]
+				},
+				{
+					"title": "Basic Information",
+					"desc": "Some basic information about pets",
+					"columns": [
+						{ "name": "ID", "width": 12 },
+						{ "name": "name", "width": 12 },
+						{ "name": "state", "width": 12 }
+					]
+				},
+				{
+					"title": "More information",
+					"desc": "More detailed pet information",
+					"columns": [
+						{ "name": "Number of days in hospital", "width": 8 },
+						{ "name": "consumption amount", "width": 8 },
+						{ "name": "Associated Person", "width": 8 }
+					]
+				}
+			]
+		},
+		"config": { "showAnchor": true }
+	},
+	"fields": {
+		"form": {
+			"sheet": {
+				"bind": "id",
+				"edit": {
+					"type": "Table",
+					"props": {
+						"model": "pet",
+						"query": { "id": "1", "status": ":status" }
+					}
+				}
+			},
+			"ID": {
+				"bind": "id",
+				"edit": {
+					"type": "Input",
+					"props": { "disabled": true }
+				}
+			},
+			"name": {
+				"bind": "name",
+				"in": "scripts.pet.SaveName",
+				"edit": {
+					"type": "Input",
+					"props": { "placeholder": "Please enter pet name {{id}}" }
+				}
+			},
+			"type": {
+				"bind": "type",
+				"edit": {
+					"type": "RadioGroup",
+					"props": {
+						"xProps": {
+							"$remote": {
+								"process": "models.pet.Get",
+								"query": { "select": ["id", "name"] }
+							}
+						}
+					}
+				}
+			},
+			"state": {
+				"bind": "status",
+				"in": "scripts.pet.SaveTag",
+				"out": "scripts.pet.GetTag",
+				"edit": {
+					"type": "Select",
+					"props": {
+						"xProps": {
+							"$remote": {
+								"process": "models.pet.Get",
+								"query": { "select": ["id", "name"] }
+							}
+						}
+					}
+				}
+			},
+			"The number of days in hospital": {
+				"bind": "stay",
+				"edit": { "type": "Input", "props": {} }
+			},
+			"Amount of consumption": {
+				"bind": "cost",
+				"edit": { "type": "InputNumber", "props": {} }
+			},
+			"Associated Person": {
+				"bind": "doctor_id",
+				"edit": { "type": "Input", "props": {} }
+			}
+		}
+	}
+}
+```

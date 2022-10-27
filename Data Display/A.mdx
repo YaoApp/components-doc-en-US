@@ -2,7 +2,7 @@
 
 Click the link to jump to the external site.
 
-## Scenes
+## Scenes to be used
 
 - Jump to third-party sites
 
@@ -13,19 +13,17 @@ Click the link to jump to the external site.
 ## Example
 
 <Notice type='warning'>
-	Note: As an extension of the a tag, the target attribute of this component is "_blank" and
-	cannot be changed.
+	Note: As an extension of the a tag, the target attribute of this component is "_blank" and cannot
+	be changed.
 </Notice>
 
 ```json
 {
 	"Link": {
-		"label": "External link",
+		"bind": "link",
 		"view": {
-			"type": "a",
-			"props": {
-				"value": ":link"
-			}
+			"type": "A",
+			"props": {}
 		}
 	}
 }
@@ -38,14 +36,11 @@ interface IProps
 	extends React.DetailedHTMLProps<
 		React.AnchorHTMLAttributes<HTMLAnchorElement>,
 		HTMLAnchorElement
-	> {
-	value: string | undefined
-}
+	> {}
 ```
 
 ## API
 
 | Properties | Description | Type   | Default | Required | Version |
 | ---------- | ----------- | ------ | ------- | -------- | ------- |
-| value      | text        | string | -       | yes      |         |
 | href       | link        | string | -       | no       |         |

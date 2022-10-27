@@ -2,7 +2,7 @@
 
 Picture, used to display image information.
 
-## Scenes
+## Scenes to be used
 
 - profile picture
 
@@ -13,12 +13,10 @@ Picture, used to display image information.
 ```json
 {
 	"Label": {
-		"label": "image",
+		"bind": "images",
 		"view": {
 			"type": "image",
-			"props": {
-				"value": ":avatar"
-			}
+			"props": {}
 		}
 	}
 }
@@ -27,15 +25,7 @@ Picture, used to display image information.
 ## Props
 
 ```ts
-interface IProps extends ImageProps {
-	value: string | Array<string>
-}
+interface IProps extends ImageProps {}
 ```
 
-## API
-
-| Properties | Description | Type                      | Default | Required | Version |
-| ---------- | ----------- | ------------------------- | ------- | -------- | ------- |
-| value      | image path  | string \| `Array<string>` | -       | yes      |         |
-
-For other properties, see [Antd Image](https://ant.design/components/image/)
+For other properties, see [Antd Image](https://ant-design.gitee.io/components/image-cn/)

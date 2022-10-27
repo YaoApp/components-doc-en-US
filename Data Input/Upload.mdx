@@ -1,0 +1,45 @@
+# Upload
+
+File selection upload and drag and drop upload controls.
+
+## Scenes to be used
+
+Uploading is the process of publishing information (web pages, text, pictures, videos, etc.) to a remote server through web pages or uploading tools.
+
+- When one or several files need to be uploaded.
+
+- When you need to use drag and drop interaction.
+
+## Example
+
+```json
+{
+	"Upload": {
+		"bind": "Upload_value",
+		"edit": {
+			"type": "Upload",
+			"props": {
+				"filetype": "image",
+				"multiple": true,
+				"maxCount": 2
+			}
+		}
+	}
+}
+```
+
+## Props
+
+```ts
+interface IProps extends UploadProps, Component.PropsEditComponent, CommonProps {
+	api: string
+}
+```
+
+## API
+
+| Properties | Description | Type   | Default | Required | Version |
+| ---------- | ----------- | ------ | ------- | -------- | ------- |
+| api        | Upload API  | string | -       | Yes      |         |
+
+For other properties, see [Antd Upload](https://ant-design.gitee.io/components/upload-cn/)

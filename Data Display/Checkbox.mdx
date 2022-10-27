@@ -1,0 +1,33 @@
+# Checkbox
+
+## Example
+
+```json
+{
+	"state": {
+		"bind": "open",
+		"view": {
+			"type": "Checkbox",
+			"props": {
+				"text": "Open"
+			}
+		}
+	}
+}
+```
+
+## Props
+
+```ts
+interface IProps extends CheckboxProps {
+	text?: string
+}
+```
+
+## API
+
+| Properties | Description | Type   | Default | Required | Version |
+| ---------- | ----------- | ------ | ------- | -------- | ------- |
+| text       | description | string | -       | no       |         |
+
+For other properties, see [Antd Checkbox](https://ant-design.gitee.io/components/checkbox-cn/)

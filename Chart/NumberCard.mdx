@@ -1,45 +1,23 @@
-# NumberCard
+# NumberChart
 
-Digital cards, usually used to display key indicator information.
-
-## Example
-
-<Notice type='warning'>
-	Note: Chart-related components can be used in the setting of Chart, Kanban, and Screen pages,
-	as well as in Form, and the writing method will be different.
-</Notice>
+Numerical charts are usually used to display key indicator information and its historical data.
 
 ### Used on the chart page
 
 ```json
 {
-	"name": "Cloud computing related companies",
-	"width": 6,
-	"type": "numberCard",
-	"props": {
-		"icon": "cloud-outline",
-		"unit": "home"
-	}
-}
-```
-
-### Use on form pages
-
-```json
-{
-	"table chart": {
-		"label": "Table Chart",
-		"edit": {
-			"type": "chart",
+	"spend": {
+		"bind": "cost",
+		"link": "/x/Table/pet",
+		"view": {
+			"type": "NumberChart",
 			"props": {
-				"type": "numberCard",
-				"value": ":service",
-				"hide_label": true,
-				"chart_props": {
-					"height": 240,
-					"icon": "cloud-outline",
-					"unit": "home"
-				}
+				"chartHeight": 150,
+				"color": "red",
+				"prefix": "¥",
+				"decimals": 2,
+				"nameKey": "date",
+				"valueKey": "value"
 			}
 		}
 	}
@@ -50,17 +28,26 @@ Digital cards, usually used to display key indicator information.
 
 ```ts
 interface IProps {
-	name: string
-	icon: string
+	data: Array<any>
+	type: 'bar' | 'line'
+	nameKey?: string
+	valueKey?: string
+	prefix?: string
 	unit?: string
+	decimals?: number
+	chartHeight?: number
+	color?: string
 }
 ```
 
 ## API
 
-| Properties | Description     | Type   | Default | Required | Version |
-| ---------- | --------------- | ------ | ------- | -------- | ------- |
-| name       | data key        | string | -       | yes      |         |
-| width      | number of grids | string | -       | yes      |         |
-| icon       | icon            | string | -       | yes      |         |
-| unit       | unit            | string | -       | no       |         |
+| Properties  | Description   | Type   | Default | Required | Version |
+| ----------- | ------------- | ------ | ------- | -------- | ------- |
+| nameKey     | name key      | string | -       | no       |         |
+| valueKey    | value key     | string | -       | no       |         |
+| prefix      | prefix        | string | -       | no       |         |
+| unit        | unit          | string | -       | no       |         |
+| decimals    | decimal point | number | -       | no       |         |
+| chartHeight | height        | number | -       | no       |         |
+| color       | color         | string | -       | no       |         |

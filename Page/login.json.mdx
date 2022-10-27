@@ -1,0 +1,40 @@
+```json
+{
+	"name": "::Admin Login",
+	"action": {
+		"process": "yao.login.Admin",
+		"args": [":payload"]
+	},
+	"layout": {
+		"entry": "/x/Chart/dashboard",
+		"captcha": "yao.utils.Captcha",
+		"cover": "/assets/images/login/cover.svg",
+		"slogan": "::Make Your Dream With Yao App Engine",
+		"site": "https://yaoapps.com"
+	}
+}
+```
+
+```ts
+interface IProps {
+	name: string
+	action: {
+		/** handler */
+		process: string
+		/** Processor parameters */
+		args: Array<string>
+	}
+	layout: {
+		/** Jump to the page after successful login */
+		entry: string
+		/** page illustration */
+		cover?: string
+		/** Page Slogan */
+		slogan?: string
+		/** Bottom link */
+		site?: string
+		/** Whether to display the media link of yao */
+		showSNS?: boolean
+	}
+}
+```

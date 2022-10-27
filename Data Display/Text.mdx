@@ -1,8 +1,8 @@
-# Label
+# Text
 
 Plain text, for presentation only.
 
-## Scenes
+## Scenes to be used
 
 - username
 
@@ -13,12 +13,10 @@ Plain text, for presentation only.
 ```json
 {
 	"Label": {
-		"label": "Text",
+		"bind": ":name",
 		"view": {
-			"type": "label",
-			"props": {
-				"value": ":name"
-			}
+			"type": "Text",
+			"props": {}
 		}
 	}
 }
@@ -28,7 +26,7 @@ Plain text, for presentation only.
 
 ```ts
 interface IProps {
-	value: string | number
+	format?: string
 }
 ```
 
@@ -36,4 +34,4 @@ interface IProps {
 
 | Properties | Description | Type   | Default | Required | Version |
 | ---------- | ----------- | ------ | ------- | -------- | ------- |
-| value      | text        | string | -       | yes      |         |
+| format     | format      | string | -       | no       |         |

@@ -1,0 +1,291 @@
+# Table
+
+## Attributes
+
+- name: table name
+- layout.primary: primary key
+- layout.header?: Header
+- layout.filter?: Filter
+- layout.table.props?: Antd TableProps (optional)
+- layout.table.columns: field description (`Array<BaseColumn>`)
+- layout.table.operation: data item operation
+     - width?: Action bar width
+     - hide?: whether to hide
+     - fold?: whether to fold
+     - actions: Actions
+- fields.filter: `Fields`
+- fields.table: `Fields`
+
+###Header
+
+Some settings at the top of the page.
+
+```ts
+interface Header {
+	preset: {
+		batch?: {
+			columns: Array<Common.WideColumn>
+			deletable: boolean
+		}
+		import?: {
+			api: {
+				setting: string
+				mapping: string
+				preview: string
+				import: string
+				mapping_setting_model: string
+				preview_setting_model: string
+			}
+			operation: Array<any>
+		}
+	}
+	actions?: Array<{
+		title: string
+		icon: string
+		props: {
+			type: string
+			payload: any
+		}
+	}>
+}
+```
+
+### Filter
+
+Filter settings for the table and some operations related to the table as a whole (only `Common.historyPush` and `Common.openModal` are supported).
+
+```ts
+interface Filter {
+	columns: Array<Common.WideColumn>
+	actions?: Actions
+}
+
+interface WideColumn {
+	name: string
+	width: number
+}
+```
+
+### Section
+
+```ts
+interface BaseColumn {
+	name: string
+	width?: number
+}
+```
+
+Tabs will be rendered to support switching tab bars.
+
+## Example
+
+```json
+{
+	"name": "::Pet Admin",
+
+	"action": {
+		"bind": { "model": "pet", "option": { "withs": { "doctor": {} } } },
+
+		"before:search": "scripts.pet.BeforeSearch",
+		"search": { "process": "scripts.pet.Search", "default": [null, 1, 15] },
+		"after:search": "scripts.pet.AfterSearch",
+
+		"find": { "guard": "-" },
+		"get": { "guard": "bearer-jwt,scripts.pet.Guard" },
+
+		"save": {},
+		"delete": {}
+	},
+
+	"layout": {
+		"primary": "id",
+
+		"header": {
+			"preset": {
+				"batch": {
+					"columns": [
+						{ "name": "name", "width": 12 },
+						{ "name": "consumption amount", "width": 12 },
+						{ "name": "Admission Status", "width": 12 }
+					],
+					"deletable": true
+				},
+				"import": {
+					"name": "pet",
+					"operation": [{ "title": "Jump", "link": "https://baidu.com" }]
+				}
+			}
+		},
+
+		"filter": {
+			"columns": [
+				{ "name": "name", "width": 4 },
+				{ "name": "state", "width": 4 }
+			],
+			"actions": [
+				{
+					"title": "Add pet",
+					"icon": "icon-plus",
+					"width": 3,
+					"action": {
+						"Common.openModal": {
+							"width": 640,
+							"Form": { "type": "edit", "model": "pet" }
+						}
+					}
+				}
+			]
+		},
+
+		"table": {
+			"columns": [
+				{ "name": "Name" },
+				{ "name": "Consumption Amount" },
+				{ "name": "Admission Status" }
+			],
+			"operation": {
+				"fold": false,
+				"width": 255,
+				"actions": [
+					{
+						"title": "View",
+						"icon": "icon-eye",
+						"action": {
+							"Common.openModal": {
+								"width": 640,
+								"Form": { "type": "view", "model": "pet" }
+							}
+						}
+					},
+					{
+						"title": "Edit",
+						"icon": "icon-edit-2",
+						"action": {
+							"Common.openModal": {
+								"Form": { "type": "edit", "model": "pet" }
+							}
+						}
+					},
+					{
+						"title": "Cure",
+						"icon": "icon-check",
+						"action": {
+							"Table.save": { "id": ":id", "status": "cured" }
+						},
+						"style": "success",
+						"confirm": {
+							"title": "Prompt",
+							"desc": "Confirm to change to healing state?"
+						}
+					},
+					{
+						"title": "View Details",
+						"icon": "icon-book-open",
+						"action": {
+							"Common.historyPush": {
+								"pathname": "/x/Form/pet/:id/edit"
+							}
+						}
+					},
+					{
+						"title": "Return to previous page",
+						"icon": "icon-arrow-left",
+						"action": { "Common.historyBack": {} }
+					},
+					{
+						"title": "Delete",
+						"icon": "icon-trash-2",
+						"action": { "Table.delete": {} },
+						"style": "danger",
+						"confirm": {
+							"title": "Tips",
+							"desc": "Confirm the deletion, the data cannot be recovered after deletion?"
+						}
+					}
+				]
+			}
+		}
+	},
+
+	"fields": {
+		"filter": {
+			"name": {
+				"bind": "where.name.like",
+				"edit": {
+					"type": "Input",
+					"props": { "placeholder": "Please enter a pet name" }
+				}
+			},
+			"state": {
+				"bind": "where.status.in",
+				"edit": {
+					"type": "Select",
+					"props": {
+						"xProps": {
+							"$remote": {
+								"process": "models.pet.Get",
+								"query": { "select": ["id", "name"] }
+							}
+						}
+					}
+				}
+			}
+		},
+
+		"table": {
+			"name": {
+				"bind": "name",
+				"view": { "bind": "cost", "type": "Text", "props": {} },
+				"edit": {
+					"type": "Input",
+					"bind": "cost",
+					"props": { "placeholder": "Please enter pet name {{id}}" }
+				}
+			},
+			"Admission Status": {
+				"bind": "status",
+				"view": {
+					"type": "Tag",
+					"props": {
+						"xProps": {
+							"$remote": {
+								"process": "models.pet.Get",
+								"query": { "select": ["id", "name"] }
+							}
+						},
+						"pure": true
+					}
+				},
+				"edit": {
+					"type": "Select",
+					"props": {
+						"xProps": {
+							"$remote": {
+								"process": "models.pet.Get",
+								"query": { "select": ["id", "name"] }
+							}
+						}
+					}
+				}
+			},
+			"state": {
+				"bind": "mode",
+				"view": {
+					"type": "Switch",
+					"props": {
+						"checkedValue": "enabled",
+						"unCheckedValue": "disabled",
+						"checkedChildren": "On",
+						"unCheckedChildren": "Close"
+					}
+				}
+			},
+			"Amount of consumption": {
+				"bind": "cost",
+				"view": { "type": "Text", "props": {} },
+				"edit": { "type": "Input", "props": {} }
+			}
+		}
+	}
+}
+```

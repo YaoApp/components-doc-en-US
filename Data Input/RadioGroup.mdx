@@ -1,0 +1,46 @@
+# RadioGroup
+
+Group of checkboxes.
+
+## Scenes to be used
+
+- When making a single choice among a set of mutually exclusive options.
+
+- The difference from Select is that all options of Radio are visible by default, which is convenient for users to choose in comparison, so the options should not be too many.
+
+## Example
+
+```json
+{
+	"RadioGroup": {
+		"bind": "RadioGroup_value",
+		"edit": {
+			"type": "RadioGroup",
+			"props": {
+				"options": [
+					{
+						"label": "Apple",
+						"value": 1
+					},
+					{
+						"label": "Pear",
+						"value": 2
+					},
+					{
+						"label": "Orange",
+						"value": 3
+					}
+				]
+			}
+		}
+	}
+}
+```
+
+## Props
+
+```ts
+interface IProps extends RadioGroupProps, Component.PropsEditComponent {}
+```
+
+See [Antd RadioGroup](https://ant-design.gitee.io/components/radio-cn/#RadioGroup) for other properties

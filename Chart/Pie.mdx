@@ -2,7 +2,7 @@
 
 Pie chart, usually used to show the proportion of data.
 
-## Scenes
+## scenes to be used
 
 - The proportion of different parts of sales.
 
@@ -12,21 +12,25 @@ Pie chart, usually used to show the proportion of data.
 
 ```json
 {
-	"name": "Industry Distribution",
-	"width": 9,
-	"type": "pie",
-	"props": {
-		"x_key": "name",
-		"series": [
-			{
-				"name": "Quantity",
-				"type": "pie",
-				"roseType": "area",
-				"itemStyle": {
-					"borderRadius": 3
-				}
+	"Type Arrangement": {
+		"bind": "datasource_type",
+		"link": "/x/Table/pet",
+		"view": {
+			"type": "Pie",
+			"props": {
+				"height": 240,
+				"nameKey": "type",
+				"series": [
+					{
+						"valueKey": "count",
+						"roseType": "area",
+						"radius": [10, 100],
+						"center": ["60%", "50%"],
+						"itemStyle": { "borderRadius": 6 }
+					}
+				]
 			}
-		]
+		}
 	}
 }
 ```

@@ -1,0 +1,38 @@
+# Switch
+
+## Example
+
+```json
+{
+	"state": {
+		"bind": "mode",
+		"view": {
+			"type": "Switch",
+			"props": {
+				"checkedValue": "enabled",
+				"unCheckedValue": "disabled",
+				"checkedChildren": "On",
+				"unCheckedChildren": "Close"
+			}
+		}
+	}
+}
+```
+
+## Props
+
+```ts
+interface IProps extends SwitchProps {
+	checkedValue: boolean | string
+	unCheckedValue: boolean | string
+}
+```
+
+## API
+
+| Properties     | Description     | Type     | Default | Required | Version |
+| -------------- | --------------- | -------- | ------- | -------- | ------- | --- |
+| checkedValue   | checked value   | `boolean | string` | -        | yes     |     |
+| unCheckedValue | unchecked value | `boolean | string` | -        | yes     |     |
+
+For other properties, see [Antd Switch](https://ant-design.gitee.io/components/switch-cn/)
