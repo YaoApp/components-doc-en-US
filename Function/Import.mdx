@@ -33,11 +33,13 @@ interface Header {
 				mapping_setting_model: string
 				preview_setting_model: string
 			}
-			operation: Array<any>
+			actions: Actions
 		}
 	}
 }
 ```
+
+<Notice type='warning'>Note: Imported Actions can only use `Common.historyPush`. </Notice>
 
 ## API
 
