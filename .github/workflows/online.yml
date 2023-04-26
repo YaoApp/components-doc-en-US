@@ -19,5 +19,5 @@ jobs:
                           port: ${{ secrets.PORT }}
                           command_timeout: 20m
                           script: |
-                                cd /app/website/components-doc-zh-CN
+                                cd /app/website/components-doc-en-US
                                 git pull
